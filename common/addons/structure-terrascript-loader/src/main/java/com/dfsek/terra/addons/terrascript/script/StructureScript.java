@@ -7,6 +7,8 @@
 
 package com.dfsek.terra.addons.terrascript.script;
 
+import com.dfsek.terra.addons.terrascript.script.builders.FurnitureBlockFunctionBuilder;
+
 import net.jafama.FastMath;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -75,6 +77,7 @@ public class StructureScript implements Structure, Keyed<StructureScript> {
         
         parser
                 .registerFunction("block", new BlockFunctionBuilder(platform))
+                .registerFunction("furnitureBlock", new FurnitureBlockFunctionBuilder(platform))
                 .registerFunction("debugBlock", new BlockFunctionBuilder(platform))
                 .registerFunction("structure", new StructureFunctionBuilder(registry, platform))
                 .registerFunction("randomInt", new RandomFunctionBuilder())

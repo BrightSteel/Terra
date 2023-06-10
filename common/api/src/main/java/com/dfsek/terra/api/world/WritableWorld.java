@@ -52,7 +52,13 @@ public interface WritableWorld extends ReadableWorld {
         return spawnEntity(location.getX(), location.getY(), location.getZ(), entityType);
     }
     
+    default void addFurniture(Vector3 location, String identifier) {
+        addFurniture(location.getBlockX(), location.getBlockY(), location.getBlockZ(), identifier);
+    }
+    
     Entity spawnEntity(double x, double y, double z, EntityType entityType);
+    
+    void addFurniture(int x, int y, int z, String identifier);
     
     default BufferedWorld buffer(int offsetX, int offsetY, int offsetZ) {
         return BufferedWorld

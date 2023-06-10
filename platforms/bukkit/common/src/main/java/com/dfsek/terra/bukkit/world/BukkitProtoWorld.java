@@ -1,7 +1,16 @@
 package com.dfsek.terra.bukkit.world;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.generator.LimitedRegion;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,6 +86,16 @@ public class BukkitProtoWorld implements ProtoWorld {
     @Override
     public int getMinHeight() {
         return delegate.getWorld().getMinHeight();
+    }
+    
+    @Override
+    public void addFurniture(int x, int y, int z, String identifier) {
+    
+        // use delegate to access chunk and anything about the world! Otherwise will lock thread i am sure
+        Chunk chunk = delegate.getWorld().getChunkAt(new Location(delegate.getWorld(), x, y, z));
+        chunk.getPersistentDataContainer().set(new NamespacedKey("gardens", x + "." + y + "." + z), PersistentDataType.STRING, identifier);
+        delegate.setBlockState(x, y, z, (org.bukkit.block.BlockState) BukkitBlockState.newInstance(Bukkit.createBlockData("minecraft:SPRUCE_LEAVES[persistent=true]")));
+//
     }
     
     @Override

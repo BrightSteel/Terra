@@ -96,6 +96,11 @@ public class BufferedWorld implements WritableWorld {
         return delegate.spawnEntity(x + offsetX, y + offsetY, z + offsetZ, entityType);
     }
     
+    @Override
+    public void addFurniture(int x, int y, int z, String identifier) {
+        delegate.addFurniture(x + offsetX, y + offsetY, z + offsetZ, identifier);
+    }
+    
     /**
      * Get the world this {@link BufferedWorld} delegates to.
      *

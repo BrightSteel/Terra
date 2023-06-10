@@ -33,6 +33,11 @@ import com.dfsek.terra.bukkit.generator.BukkitChunkGeneratorWrapper;
 import com.dfsek.terra.bukkit.world.block.state.BukkitBlockEntity;
 import com.dfsek.terra.bukkit.world.entity.BukkitEntityType;
 
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.ItemFrame;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
+
 
 public class BukkitServerWorld implements ServerWorld {
     private final org.bukkit.World delegate;
@@ -43,8 +48,14 @@ public class BukkitServerWorld implements ServerWorld {
     
     @Override
     public Entity spawnEntity(double x, double y, double z, EntityType entityType) {
-        return new BukkitEntity(
-                delegate.spawnEntity(new Location(delegate, x, y, z), ((BukkitEntityType) entityType).getHandle()));
+        org.bukkit.entity.Entity e = delegate.spawnEntity(new Location(delegate, x, y, z), ((BukkitEntityType) entityType).getHandle());
+        
+        return new BukkitEntity(e);
+    }
+    
+    @Override
+    public void addFurniture(int x, int y, int z, String identifier) {
+        // do nothing I guess
     }
     
     @Override

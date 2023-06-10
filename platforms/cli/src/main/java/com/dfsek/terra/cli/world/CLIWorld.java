@@ -217,6 +217,9 @@ public class CLIWorld implements ServerWorld, NBTSerializable<Stream<Pair<Vector
     }
     
     @Override
+    public void addFurniture(int x, int y, int z, String identifier) {}
+    
+    @Override
     public Stream<Pair<Vector2Int, MCAFile>> serialize() {
         return Streams
                 .concat(Arrays.stream(regions), Arrays.stream(negativeRegions))
@@ -289,7 +292,12 @@ public class CLIWorld implements ServerWorld, NBTSerializable<Stream<Pair<Vector
         public Entity spawnEntity(double x, double y, double z, EntityType entityType) {
             return delegate.spawnEntity(x, y, z, entityType);
         }
-        
+    
+        @Override
+        public void addFurniture(int x, int y, int z, String identifier) {
+            delegate.addFurniture(x, y, z, identifier);
+        }
+    
         @Override
         public int centerChunkX() {
             return x;
